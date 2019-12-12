@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Shopping Cart</title>
+	<script type="application/javascript" src="vue.js"></script>
+	<link rel="stylesheet" href="shop.css">
+</head>
+<body>
+	<h3>Click '-/+' to change amount, click 'Delete' to delete item.</h3>
+	<div id="app" v-cloak>
+		<template v-if="list.length">
+			<table>
+				<caption>
+					Shopping Cart
+				</caption>
+				<thead>
+					<tr>
+						<th></th>
+						<th>Name</th>
+						<th>Price</th>
+						<th>Amount</th>
+						<th>Operation</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr v-for="(item, index) in list">
+						<td>{{index + 1}}</td>
+						<td>{{item.name}}</td>
+						<td>{{item.price | thousands}}</td>
+						<td>
+							<button @click="reduce(index)" :disabled="item.count === 1">-</button>
+							{{item.count}}
+							<button @click="add(index)">+</button>
+						</td>
+						<td>
+							<button @click="remove(index)">Delete</button>
+						</td>
+					</tr>
+				<tr>
+					<td colspan="4">Total price</td>
+					<td>{{totalPrice | thousands}}</td>
+				</tr>
+				</tbody>
+			</table>
+		</template>
+		<div v-else>
+			Shopping Cart is empty.
+		</div>
+	</div>
+	<script src="shop.js"></script>
+</body>
+</html>
